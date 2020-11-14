@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         marginLeft: 25,
         marginRight: 25,
         color: '#fff',
-        fontSize: 50, 
+        fontSize: 40, 
         position: 'absolute'
     },
     safeArea: {

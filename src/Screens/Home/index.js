@@ -3,21 +3,21 @@ import {Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 import Carousel,{Pagination} from 'react-native-snap-carousel';
 
-
-const codewave= () => {
+const codewave= (prop) => {
   const DATA = require('../../Database/data.json');
   const[activeIndex, setactiveIndex] = useState(0);
-  const[carouselItems, setcarouselItems] = useState(shuffleDeck(DATA));  
-  
-  function  shuffleDeck(array){
+  const[data, setdata] = useState(DATA);
+  const[carouselItems, setcarouselItems] = useState(data.slice(0,4));
+
+  const  shuffleDeck = (array) => {
     let i = array.length - 1;
     for (; i > 0; i--) {
        const j = Math.floor(Math.random() * (i + 1));
       const temp = array[i];
       array[i] = array[j];
       array[j] = temp;
-    }
-    return array;
+      }
+    return setdata(array)
   };
 
     const renderItem = ({item,index}) => {        
@@ -39,6 +39,9 @@ const codewave= () => {
                   layout={"default"}
                   ref={ref => carousel = ref}
                   data={carouselItems}
+                  initialNumToRender={4}
+                  onEndReached={() => shuffleDeck(DATA)}
+                  onEndReachedThreshold={0.5}
                   sliderWidth={400}
                   itemWidth={300}
                   renderItem={renderItem}
